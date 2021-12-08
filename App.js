@@ -92,7 +92,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderBottomColor: 'gray',
-    borderWidth: 0.5
+    borderWidth: 0.5,
+    backgroundColor: 'snow',
+    margin: 10,
+    borderRadius: 5
   },
   fill: {
     flex: 1,
