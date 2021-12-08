@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { Audio } from 'expo-av';
-import { Feather, Ionicons } from '@expo/vector-icons'; 
+import { MaterialIcons, Ionicons } from '@expo/vector-icons'; 
 
 export default function App() {
   const [recording, setRecording] = React.useState();
@@ -60,7 +60,11 @@ export default function App() {
       return (
         <View key={index} style={styles.row}>
           <Text style={styles.fill}>Recording {index + 1} - {recordingLine.duration}</Text>
-          <Ionicons name='md-play-circle-sharp' size={30} color={'pink'} onPress={() => recordingLine.sound.replayAsync()} ></Ionicons>
+          <MaterialIcons name='replay' size={50} onPress={() => recordingLine.sound.setPositionAsync(0)} color={'pink'}></MaterialIcons>
+          <Ionicons name= 'pause-circle-sharp' size={50} color={'pink'} onPress={() => recordingLine.sound.pauseAsync()}></Ionicons>
+          <Ionicons name='play-circle-sharp' size={50} color={'pink'} onPress={() => recordingLine.sound.playAsync() } ></Ionicons>
+          
+
         </View>
       );
     });
@@ -68,9 +72,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+    <Text style={styles.text}>RECORDING APP</Text>
       <Text>{message}</Text>
       <Ionicons
       name='md-mic-sharp'
+      style={styles.mic}
         color={recording ? 'red' : 'black'}
         size={100}
         onPress={recording ? stopRecording : startRecording} />
@@ -95,12 +101,23 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     backgroundColor: 'snow',
     margin: 10,
-    borderRadius: 5
+    borderRadius: 5,
+    elevation: 20
   },
   fill: {
     flex: 1,
     margin: 16,
     fontWeight: 'bold'
+  },
+  mic: {
+    alignContent: 'center',
+    justifyContent: 'center'
+  },
+  text: {
+    flex: 1,
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginTop: 50
   },
   button: {
     margin: 16
