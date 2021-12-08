@@ -60,7 +60,8 @@ export default function App() {
       return (
         <View key={index} style={styles.row}>
           <Text style={styles.fill}>Recording {index + 1} - {recordingLine.duration}</Text>
-          <MaterialIcons name='replay' size={50} onPress={() => recordingLine.sound.setPositionAsync(0)} color={'pink'}></MaterialIcons>
+          <MaterialIcons name='replay' size={50} onPress={() => recordingLine.sound.setPositionAsync(0) && recordingLine.sound.stopAsync()} color={'pink'}></MaterialIcons>
+
           <Ionicons name= 'pause-circle-sharp' size={50} color={'pink'} onPress={() => recordingLine.sound.pauseAsync()}></Ionicons>
           <Ionicons name='play-circle-sharp' size={50} color={'pink'} onPress={() => recordingLine.sound.playAsync() } ></Ionicons>
           
