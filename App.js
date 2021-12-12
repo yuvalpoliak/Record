@@ -8,6 +8,7 @@ export default function App() {
   const [recording, setRecording] = React.useState();
   const [recordings, setRecordings] = React.useState([]);
   const [message, setMessage] = React.useState("");
+  const [shouldShow, setShouldShow] = React.useState(true);
 
   async function startRecording() {
     try {
@@ -46,6 +47,7 @@ export default function App() {
 
     setRecordings(updatedRecordings);
   }
+  
 
   function getDurationFormatted(millis) {
     const minutes = millis / 1000 / 60;
@@ -60,10 +62,12 @@ export default function App() {
       return (
         <View key={index} style={styles.row}>
           <Text style={styles.fill}>Recording {index + 1} - {recordingLine.duration}</Text>
-          <MaterialIcons name='replay' size={50} onPress={() => recordingLine.sound.setPositionAsync(0) && recordingLine.sound.stopAsync()} color={'pink'}></MaterialIcons>
-
-          <Ionicons name= 'pause-circle-sharp' size={50} color={'pink'} onPress={() => recordingLine.sound.pauseAsync()}></Ionicons>
-          <Ionicons name='play-circle-sharp' size={50} color={'pink'} onPress={() => recordingLine.sound.playAsync() } ></Ionicons>
+          
+          <MaterialIcons name='replay' style={styles.sound} size={48} onPress={() => recordingLine.sound.setPositionAsync(0) && recordingLine.sound.stopAsync()} color={'pink'}></MaterialIcons>
+          <Ionicons name= 'pause-circle-sharp' style={styles.sound} size={45} color={'pink'} onPress={() => recordingLine.sound.pauseAsync()}></Ionicons>
+          <Ionicons name='play-circle-sharp' style={styles.sound} size={45} color={'pink'} onPress={() => recordingLine.sound.playAsync() } ></Ionicons>
+          <MaterialIcons name='delete'  size={45} color={'gray'} onPress={() => setShouldShow(!shouldShow)} />
+          <Ionicons name= 'send-sharp' size={40} color={'blue'}></Ionicons>
           
 
         </View>
@@ -81,7 +85,10 @@ export default function App() {
         color={recording ? 'red' : 'black'}
         size={100}
         onPress={recording ? stopRecording : startRecording} />
+        <Text style={styles.fill}>{recording ? 'stop' : 'start'}</Text>
+        
       {getRecordingLines()}
+      
       <StatusBar style="auto" />
     </View>
   );
@@ -93,22 +100,31 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    alignContent: 'center'
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    alignContent: 'center',
     borderBottomColor: 'gray',
     borderWidth: 0.5,
     backgroundColor: 'snow',
     margin: 10,
+    padding: 30,
     borderRadius: 5,
     elevation: 20
   },
   fill: {
     flex: 1,
-    margin: 16,
-    fontWeight: 'bold'
+    margin: 10,
+    fontWeight: 'bold',
+    color: 'black'
+  },
+  sound: {
+    backgroundColor: 'white',
+    borderColor: 'lightgray',
+    borderWidth: 0.2
   },
   mic: {
     alignContent: 'center',
@@ -122,5 +138,6 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 16
-  }
+  },
+  
 });
